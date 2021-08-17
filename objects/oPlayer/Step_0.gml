@@ -19,3 +19,5 @@ hSpeed *= speedWalk;
 // movement
 
 x -= hSpeed;
+
+//cummies
