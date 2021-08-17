@@ -1,22 +1,59 @@
-//Player Inputs
+//Get Player Inputs
 
-keyLeft = keyboard_check(ord("A"));
-keyRight = keyboard_check(ord("D"));
+key_Left = keyboard_check(ord("A"));
+key_Right = keyboard_check(ord("D"));
 //keyUp = keyboard_check(ord("W"));
 //keyDown = keyboard_check(ord("S"));
+key_jump = keyboard_check_pressed(vk_space)
+key_Activate = keyboard_check_pressed(ord("E"));
+mouse_Attack = mouse_check_button(mb_left);
+mouse_H_Attack = mouse_check_button(mb_right);
 
-//Future Keyboard Use
+//Calc Movement
 
-keyActivate = keyboard_check_pressed(ord("E"));
-mouseAttack = mouse_check_button(mb_left);
-mouseHAttack = mouse_check_button(mb_right);
+var move = key_Right - key_Left;
 
-//Player Input
+hSpeed = move * speedWalk;
 
-hSpeed = (keyboard_check(ord("A"))) - (keyboard_check(ord("D")));
-hSpeed *= speedWalk;
+//Gravity
 
-// movement
+vSpeed = vSpeed + grv;
 
-x -= hSpeed;
+//Jumping
 
+if (place_meeting(x,y+1,oGround)) and (key_jump)
+{
+	vSpeed = -10;
+}
+
+//Horizontal Collision
+
+if (place_meeting(x+hSpeed,y,oGround))
+{
+	while (!place_meeting(x+sign(hSpeed),y,oGround))
+	{
+		x = x + sign(hSpeed);
+	}
+	hSpeed = 0;
+}
+x = x + hSpeed;
+
+//Vertical Collision
+
+if (place_meeting(x,y+vSpeed,oGround))
+{
+	while (!place_meeting(x,y+sign(vSpeed),oGround))
+	{
+		y = y + sign(vSpeed);
+	}
+	vSpeed = 0;
+}
+y = y + vSpeed;
+
+//Animaiton
+
+if (!place_meeting(x,y+1,oGround))
+{
+	sprite_index = sPlayerA;
+	image_speed = 0;
+}
