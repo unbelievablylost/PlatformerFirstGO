@@ -56,4 +56,22 @@ if (!place_meeting(x,y+1,oGround))
 {
 	sprite_index = sPlayerA;
 	image_speed = 0;
+	if (sign(vSpeed) > 0) image_index = 1; else image_index = 0;
+} 
+else
+{
+	image_speed = 1;
+	if (hSpeed == 0)
+	{
+		sprite_index = sPlayer;
+	}
+	else
+	{
+		sprite_index = sPlayerR
+	}
+	
 }
+
+// Crucial to determining direction of sprite basically flipping it.
+
+if (hSpeed != 0) image_xscale = sign (hSpeed);
